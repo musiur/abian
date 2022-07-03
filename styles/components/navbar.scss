@@ -104,3 +104,11 @@
     transform: translateX(0);
     transition: 1s ease-in-out;
 }
+
+.username-color {
+    color: white;
+
+    &:hover {
+        color: $color-primary;
+    }
+}

@@ -5,12 +5,13 @@ import {
   faUserCheck
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import CommonProfile from "../components/usual/CommonProfile";
 import DonationTable from "../components/usual/DonationTable";
 import Settings from "../components/usual/Settings";
 import UserList from "../components/usual/UserList";
-
+import { UserContext } from "./_app";
 const sideNavList = [
   {
     link: "Profile",
@@ -32,8 +33,14 @@ const sideNavList = [
 
 const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState(0);
+  const [user, setUser] = useContext(UserContext);
+  const router = useRouter();
+  useEffect(() => {
+    !user.login && router.push("/");
+  }, [user]);
 
-  return (
+  if(user.login){
+    return (
     <div className="dashboard__container">
       <div className="dc__sidenav">
         <ul>
@@ -45,7 +52,7 @@ const Dashboard = () => {
                 onClick={() => setCurrentTab(i)}
                 className={`${currentTab === i && "dc__sidenav__li_active"}`}
               >
-                <FontAwesomeIcon icon={icon} style={{maxWidth: "30px"}}/>
+                <FontAwesomeIcon icon={icon} style={{ maxWidth: "30px" }} />
                 <span>{link}</span>
               </li>
             );
@@ -60,8 +67,9 @@ const Dashboard = () => {
       </div>
     </div>
   );
+  }else{
+    return <div></div>
+  }
 };
 
 export default Dashboard;
-
-

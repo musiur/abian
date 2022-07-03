@@ -2,7 +2,8 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../pages/_app";
 
 const links = [
   {
@@ -17,19 +18,20 @@ const links = [
     linkName: "About",
     link: "/about-us",
   },
-  {
-    linkName: "Login",
-    link: "/login",
-  },
 ];
 
 const Navbar = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false);
   const router = useRouter();
+  const [user, setUser] = useContext(UserContext);
 
   useEffect(() => {
     setOpenMobileNav(false);
   }, [router]);
+
+  const logout = () => {
+    setUser({ ...user, login: false });
+  };
 
   return (
     <nav className={`nav`}>
@@ -43,7 +45,6 @@ const Navbar = () => {
 
         <div className={`nav__rightDiv`}>
           {links.map((data, i) => {
-
             return (
               <div
                 key={i}
@@ -54,17 +55,29 @@ const Navbar = () => {
                 }}
               >
                 {
-                  <Link href={data.link}>
-                    {data.linkName === "Login" ? (
-                      <button className="btn-nav">{data.linkName}</button>
-                    ) : (
-                      <p>{data.linkName}</p>
-                    )}
+                  <Link href={data.link} passHref>
+                    <p>{data.linkName}</p>
                   </Link>
                 }
               </div>
             );
           })}
+          {user.login ? (
+            <Link href="/dashboard" passHref>
+              <p className="username-color">
+                {user.details.username ? user.details.username : "Dashboard"}
+              </p>
+            </Link>
+          ) : null}
+          {user.login ? (
+            <button className="btn-nav" onClick={logout}>
+              Logout
+            </button>
+          ) : (
+            <Link href="/login" passHref>
+              <button className="btn-nav">Login</button>
+            </Link>
+          )}
         </div>
         <div
           className={`nav__barIcon`}
@@ -74,7 +87,11 @@ const Navbar = () => {
         </div>
       </div>
       {openMobileNav && (
-        <div className={`nav__mobileNav ${openMobileNav && "nav__mobile_nav_h__full"}`}>
+        <div
+          className={`nav__mobileNav ${
+            openMobileNav && "nav__mobile_nav_h__full"
+          }`}
+        >
           {links.map((data, i) => {
             return (
               <div

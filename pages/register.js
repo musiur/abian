@@ -1,5 +1,6 @@
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import validator from "../formValidators/registerFormValidation";
 import FormStyles from "../styles/modules/form.module.scss";
@@ -11,6 +12,7 @@ const Register = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(formData);
+  const router = useRouter();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +36,10 @@ const Register = () => {
             "http://localhost:9000/auth/register",
             userdata
           );
-          console.log(res);
+         if(res.status === 200){
+          alert("Registration successfull! Let log in.");
+          router.push("/login")
+         } 
         };
         try {
           fetchAPI();

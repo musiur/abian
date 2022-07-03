@@ -1,12 +1,16 @@
 import axios from "axios";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import validator from "../formValidators/loginPageFormValidator";
 import FormStyles from "../styles/modules/form.module.scss";
+import { UserContext } from "./_app";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState(formData);
+  const [user, setUser] = useContext(UserContext);
+  const router = useRouter();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +20,11 @@ const Login = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setErrorMessage(validator(formData));
+  };
+
+  const redirectToDashboard = () => {
+    // typeof window !== "undefined" && window.location.replace("/dashboard");
+    router.push("/dashboard")
   };
 
   useEffect(() => {
@@ -29,9 +38,8 @@ const Login = () => {
           "http://localhost:9000/auth/login",
           userdata
         );
-        res.status === 200 &&
-          typeof window !== "undefined" &&
-          window.location.replace("/dashboard");
+
+        res.status === 200 && setUser({ ...user, login: true, details: res.data.result });
       };
       try {
         fetchAPI();
@@ -40,6 +48,11 @@ const Login = () => {
       }
     }
   }, [errorMessage]);
+
+  useEffect(() => {
+    console.log(user)
+    user.login === true && redirectToDashboard();
+  }, [user]);
   return (
     <div className={FormStyles.formContainer}>
       <h2>Login</h2>
