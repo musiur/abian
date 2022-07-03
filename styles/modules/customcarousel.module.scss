@@ -1,0 +1,14 @@
+.container{
+    scroll-snap-type: x mandatory;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+.slides {
+    scroll-snap-align: start;
+    width: 800px;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid orchid;
+}

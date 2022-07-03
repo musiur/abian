@@ -1,0 +1,281 @@
+@import "../globals.scss";
+@import "../partials/mixins";
+@import "../partials/variables";
+
+
+.heroSectionRoot {
+    @extend .container;
+    @include bgBoard("../../static/homeHero.webp", top, cover, no-repeat);
+    
+
+    div {
+        @include flexo(nowrap, row, space-between, center);
+        @extend .section-gap;
+
+        @media (max-width: $screen-tablet){
+                @include flexo(nowrap, column, center, center);
+            }
+
+        div {
+            flex: 50%;
+
+            @media (max-width: $screen-tablet){
+                flex: 100%;
+            }
+
+            @include flexo(nowrap, column, center, center);
+
+            h1 {
+
+                color: $color-muted;
+
+                span {
+                    font-weight: 800;
+                    color: $color-primary;
+                }
+            }
+
+            p {
+                padding-top: 2rem;
+                color: $color-muted;
+            }
+        }
+    }
+}
+
+.donateSection {
+    @extend .container;
+    // @extend .section-gap;
+    
+    @include flexo(wrap, row, space-between, center);
+
+    @media (max-width: $screen-tablet) {
+        @include flexo(wrap, column, flex-start, center);
+    }
+}
+
+.donateLeftDiv {
+    @extend .section-gap;
+        flex: 1;
+        width: 100%;
+        
+        
+
+        h4 {
+            color: $color-primary;
+            font-weight: 500;
+        }
+
+        h2 {
+            color: $color-dark;
+            @extend .heading;
+            padding: 1rem 0;
+        }
+        div {
+            @include flexo(wrap, row, space-between, center);
+
+            div {
+                flex: 25%;
+
+                padding: 1rem;
+                border-radius: 10px;
+
+                @include flexo(wrap, column, center, center);
+
+                &:hover {
+                    box-shadow: 0px 3px 10px lightgray;
+                }
+                
+            }
+        }
+}
+
+
+.donateRightDiv {
+    @extend .section-gap;
+    flex: 1;
+    width: 100%;
+    padding-left: 5%;
+
+    @media (max-width: $screen-tablet) {
+        padding-left: 0;
+    }
+
+    @include flexo(nowrap, column, flex-start, flex-start);
+
+    form {
+        background-color: $color-gray;
+        width: 85%;
+        margin: auto;
+        padding: 2rem;
+        max-width: 500px;
+        border-radius: 30px;
+    }
+
+    label {
+        padding-top: 1rem;
+        color: white;
+    }
+
+    button {
+        @extend .btn-primary;
+        width: 100%;
+        margin: {
+            top: 1rem;
+            bottom:1rem;
+        }
+    }
+
+    select {
+        outline: none;
+        border: none;
+        width: 100%;
+        background-color: #00000000;
+        color: $color-muted;
+    }
+
+    
+}
+
+.radioSelection {
+    width: 100%;
+    @include flexo(wrap, row, space-between, center);
+
+
+    @media (max-width: $screen-mobile) {
+        @include flexo(wrap, column, flex-start, flex-start);
+    }
+    padding: {
+        top: 5px;
+        bottom: 5px;
+    }
+
+    div {
+        margin-right: 2%;
+        width: 30%;
+
+        input {
+            height: 20px;
+            width: 20px;
+        }
+
+        label {
+            margin-left: 8px;
+        }
+    }
+}
+
+
+.technicalStatics {
+    @extend .container;
+    @extend .section-gap;
+
+    @include bgBoard("../../static/thirdBgChildren.webp", top, cover, no-repeat);
+
+    p {
+        color: $color-primary;
+    }
+
+    h2 {
+        @extend .heading;
+        color: white;
+        padding: 1rem 0;
+    }
+}
+
+.statisticsCouter {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: repeat(1, auto);
+    row-gap: 1rem;
+    column-gap: 1%;
+    @extend .section-gap;
+
+    @media (max-width: $screen-medium) {
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(2, auto);
+    }
+
+    @media (max-width: $screen-mobile) {
+    grid-template-columns: repeat(1, auto);
+    grid-template-rows: repeat(4, auto);
+    }
+
+    div {
+        background-color: #13131369;
+        height: 200px;
+        width: 100%;
+
+        border-radius: 10px;
+
+        @include flexo(nowrap, column, center, center);
+    }
+
+}
+
+
+.counterStyle {
+    @extend .heading;
+}
+
+.ourCauses {
+    @extend .container;
+    @extend .section-gap;
+
+    text-align: center;
+
+    p {
+        color: $color-primary;
+    }
+    h2 {
+        @extend .heading;
+        padding: 1rem 0;
+    }
+}
+
+.abianCharity {
+    @extend .container;
+    @extend .section-gap;
+
+    text-align: center;
+
+    @include bgBoard("../../static/homeHero.webp", top, cover, no-repeat);
+
+    span {
+        color: $color-primary;
+    }
+    h2 {
+        @extend .heading;
+        padding: 1rem 0;
+        color: $color-muted;
+        width: 50%;
+        margin: auto;
+        @media (max-width: $screen-tablet) {
+            width: 90%;
+        }
+    }
+
+    p {
+        color: $color-muted;
+        width: 50%;
+        margin: auto;
+        padding: 2rem 0;
+        @media (max-width: $screen-tablet) {
+            width: 90%;
+        }
+    }
+
+    div {
+        @include flexo(wrap, row, space-around, center);
+        width: 50%;
+        margin: 0 auto;
+
+        @media (max-width: $screen-small) {
+            width: 90%;
+        }
+
+        button {
+            margin: 1rem;
+        }
+    }
+}

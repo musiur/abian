@@ -1,0 +1,37 @@
+@mixin flexo($wrap, $direction, $jusitfy, $align) {
+    display: flex;
+    flex: {
+        wrap: $wrap;
+        direction: $direction;
+    }
+
+    justify-content: $jusitfy;
+    align-items: $align;
+}
+
+@mixin grido($col) {
+    display: grid;
+    grid-template-columns: repeat($col, 1fr);
+}
+
+@mixin bgBoard($address, $position, $size, $repeat) {
+    background: {
+        image: linear-gradient(to right, #111b24c4, #151d2b81), url($address);
+        size: $size;
+        repeat: $repeat;
+        position: $position;
+        attachment: fixed;
+    }
+}
+
+@mixin blury($amount) {
+    -webkit-filter: blur($amount);
+    -moz-filter: blur($amount);
+    -o-filter: blur($amount);
+    -ms-filter: blur($amount);
+    filter: blur($amount);
+}
+
+@mixin bgBlur($amount) {
+    backdrop-filter: blur($amount);
+}

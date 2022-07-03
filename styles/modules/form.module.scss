@@ -1,0 +1,42 @@
+@import "../partials/mixins";
+@import "../partials/variables";
+@import "../globals.scss";
+
+.formContainer {
+    width: 20%;
+    min-width: 500px;
+    margin: {
+        left: auto;
+        right: auto;
+        top: 5vh;
+        bottom: 5vh;
+    }
+    background-color: white;
+    padding: 2rem;
+    box-shadow: 2px 3px 15px lightgray;
+    border-radius: 20px;
+    text-align: center;
+
+    button {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        min-width: 320px;
+        padding: 1rem;
+    }
+}
+
+.formBox {
+    padding: 1rem 0;
+
+    @media (max-width: 768px) {
+        padding: 0.5rem 0;
+    }
+}
+
+.inputBox {
+    @extend .inputStyle;
+    padding: 0.5rem 1rem;
+}

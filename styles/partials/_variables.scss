@@ -1,0 +1,46 @@
+
+
+
+// colors 
+$color-primary   : #e4a532;
+$color-secondary : #8520b4;
+$color-green: #40d666;
+$color-red: #e03f3f;
+$color-muted: #e6e6e6;
+$color-gray: #3d3d3d;
+$color-dark: #161616;
+$color-bg-dark: #1D262D;
+
+// breakpoints 
+
+/**
+mobile screen 640px -> mobile
+tablet screen 768pxpx -> tab
+small pc screen 1024px -> small-pc
+medium pc screen 1280px -> medium-pc
+base pc screen 1536px -> base-pc
+larger pc screen 1920px -> larger-pc
+4k pc screen 2560px -> four-k-pc
+8k pc screen 3890px -> eight-k-pc
+*/
+
+$screen-mobile : 640px;
+$screen-tablet : 768px;
+$screen-small  : 1024px;
+$screen-medium : 1280px;
+$screen-base   : 1536px;
+$screen-larger : 1920px;
+$screen-4k     : 2560px;
+$screen-8k     : 3890px;
+
+//wrapping with padding of x-axis
+$wrap-mobile : 3%;
+$wrap-tablet : 5%;
+$wrap-small  : 7%;
+$wrap-medium : 9%;
+$wrap-base   : 11%;
+$wrap-larger : 13%;
+$wrap-4k     : 15%;
+$wrap-8k     : 17%;
+
+

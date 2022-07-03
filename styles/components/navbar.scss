@@ -1,0 +1,106 @@
+@import "../partials/variables";
+@import "../partials/mixins";
+@import "../globals.scss";
+
+.nav {
+    background-color: $color-bg-dark;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    @extend .container;
+}
+
+.mainNav {
+    background-color: none;
+    text-transform: uppercase;
+    padding: {
+        top: 0.3rem;
+        bottom: 0.3rem;
+    }
+
+    @include flexo(nowrap, row, space-between, center);
+}
+
+.nav__leftDiv {
+    flex: 50%;
+
+    cursor: pointer;
+
+    font: {
+        size: clamp(2rem, 2.3vw, 3rem);
+        weight: 700;
+    }
+    color: $color-primary;
+
+    // nested
+    span {
+        color: rgb(228, 228, 228);
+        font: {
+            size: clamp(2rem, 2.3vw, 3rem);
+            weight: 700;
+        }
+    }
+}
+
+.nav__rightDiv {
+    flex: 20%;
+    @media (max-width: $screen-tablet) {
+        display: none;
+    }
+
+    @media (max-width: $screen-medium) {
+        flex: 60%;
+    }
+
+    @include flexo(wrap, row, space-between, center);
+
+    p {
+        &:hover {
+            color: $color-primary;
+            cursor: pointer;
+        }
+    }
+}
+
+.nav__barIcon {
+    display: none;
+
+    @media (max-width: $screen-tablet) {
+        font-size: 1.5rem;
+        color: white;
+        display: block;
+    }
+}
+
+.nav__mobileNav {
+    height: 100vh;
+    display: none;
+    transform: translateX(-100%);
+    text-align: left;
+
+    transition: 1s ease-in-out;
+
+    padding-bottom: 1rem;
+
+    p {
+        margin: 1rem 0;
+        // color: white;
+    }
+
+    button {
+        margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.1rem;
+    }
+}
+
+.nav__mobile_nav_h__full {
+    transform: translateX(0);
+    transition: 1s ease-in-out;
+}

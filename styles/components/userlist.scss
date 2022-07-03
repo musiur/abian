@@ -1,0 +1,36 @@
+@import "../partials/variables";
+@import "../partials/mixins";
+@import "../globals.scss";
+
+.userlist__container {
+    h1 {
+        padding-bottom: 2rem;
+    }
+}
+#userlist {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#userlist td,
+#userlist th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#userlist tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#userlist tr:hover {
+    background-color: #ddd;
+}
+
+#userlist th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: $color-gray;
+    color: $color-primary;
+}

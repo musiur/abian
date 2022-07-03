@@ -1,0 +1,30 @@
+{
+  "name": "abian-2018",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.0",
+    "@fortawesome/free-brands-svg-icons": "^5.15.4",
+    "@fortawesome/free-regular-svg-icons": "^6.1.0",
+    "@fortawesome/free-solid-svg-icons": "^6.1.0",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "axios": "^0.27.2",
+    "next": "12.0.7",
+    "postcss-focus": "^5.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "sass": "^1.44.0",
+    "sharp": "^0.29.3",
+    "swiper": "^7.3.3"
+  },
+  "devDependencies": {
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7"
+  }
+}

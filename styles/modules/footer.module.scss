@@ -1,0 +1,131 @@
+@import "../globals.scss";
+@import "../partials/mixins";
+@import "../partials/variables";
+
+.mainDiv {
+    @extend .container;
+    @extend .section-gap;
+    background-color: $color-bg-dark;
+    color: $color-muted;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    column-gap: 3rem;
+    row-gap: 5rem;
+
+    @media (max-width: $screen-small) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $screen-mobile) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.firstDiv {
+    div {
+        font: {
+            size: clamp(2rem, 2.3vw, 3rem);
+            weight: 700;
+        }
+        color: $color-primary;
+
+        // nested
+        span {
+            color: rgb(228, 228, 228);
+            font: {
+                size: clamp(2rem, 2.3vw, 3rem);
+                weight: 700;
+            }
+        }
+    }
+
+    p {
+        margin: 1rem 0;
+    }
+}
+
+.orgDiv {
+    max-width: 250px;
+    margin: 0 auto;
+
+    @media (max-width: $screen-small) {
+        margin: 0;
+    }
+
+    p {
+        color: $color-primary;
+        font-weight: 600;
+    }
+
+    ul {
+        li {
+            list-style: none;
+            margin: 1rem 0;
+
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.newsDiv {
+    .newsHeader {
+        color: $color-primary;
+        font-weight: 600;
+    }
+
+    ul {
+        li {
+            list-style: none;
+            color: white;
+            margin: 1rem 0;
+
+            p {
+                font-weight: 500;
+                &:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            span {
+                color: $color-gray;
+            }
+        }
+    }
+}
+
+.contactUsDiv {
+    p {
+        color: $color-primary;
+        font-weight: 600;
+    }
+
+    form {
+        margin: 1rem 0;
+
+        input {
+            width: 95%;
+            margin: 0.3rem 0;
+            padding: 0.7rem 0.5rem;
+            border: 1px solid $color-dark;
+            background-color: #ffffff10;
+            color: white;
+            border-radius: 30px;
+
+            &:hover,
+            &:focus {
+                outline: none;
+                border: 1px solid $color-gray;
+                box-shadow: 0px 3px 10px $color-dark;
+            }
+        }
+
+        button {
+            margin: 1rem 0;
+        }
+    }
+}

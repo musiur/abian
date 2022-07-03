@@ -1,0 +1,40 @@
+@import "../partials/variables";
+@import "../partials/mixins";
+@import "../globals.scss";
+
+.about__hero_section {
+    background-image: linear-gradient(to top, #e6e6e6bd 10%, #ffffff00 90%), url("/static/images/group_photo.jpg");
+
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    min-height: 80vh;
+    max-height: 90vh;
+
+    @media (max-width: 1024px) {
+        min-height: 30vh;
+        max-height: 60vh;
+    }
+}
+
+.about__main {
+    @extend .section-gap, .container;
+    text-align: center;
+    h1 {
+        @extend .heading;
+        padding-bottom: 1rem;
+
+        span {
+            @extend .heading;
+            color: $color-primary;
+        }
+    }
+
+    ul {
+        @extend .section-gap;
+        li {
+            list-style: none;
+        }
+    }
+}

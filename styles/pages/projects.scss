@@ -1,0 +1,70 @@
+@import "../partials/variables";
+@import "../partials/mixins";
+@import "../globals.scss";
+
+.projects_container {
+    @extend .container, .section-gap;
+    text-align: center;
+
+    h1 {
+        span {
+            color: $color-primary;
+            text-transform: capitalize;
+            @extend .heading;
+        }
+    }
+}
+
+.projects_cards_container {
+    @include grido(3);
+    gap: 3rem;
+
+    @media (max-width: 1536px) {
+        gap: 1.5rem;
+    }
+
+    @media (max-width: 1260px) {
+        @include grido(2);
+        gap: 2rem;
+    }
+
+    @media (max-width: 640px) {
+        @include grido(1);
+        gap: 2rem;
+    }
+}
+
+.projects_cards {
+    padding: {
+        top: 1rem;
+        bottom: 2rem;
+        left: 2rem;
+        right: 2rem;
+    }
+    text-align: left;
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px lightgray;
+    transition: 0.3s ease-in;
+
+    @media (max-width: 1536px) {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: clamp(1rem, 2vw, 1.6rem);
+        color: #373737;
+        font-weight: 600;
+        border-bottom: 1px solid $color-primary;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: gray;
+    }
+
+    &:hover {
+        background-color: #fdf8f0;
+        transform: scale(1.05);
+    }
+}

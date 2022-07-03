@@ -1,0 +1,238 @@
+@import "./partials/variables";
+@import "./partials/mixins";
+
+.labelStyle {
+  font-size: clamp(1rem, 2vw, 2rem);
+  color: gray;
+}
+
+.mainroot {
+  font-family: "Poppins", sans-serif;
+
+  font-size: clamp(1rem, 1vw, 1.3rem);
+  box-sizing: border-box;
+}
+
+.heading {
+  font: {
+    size: clamp(1.5rem, 2vw, 3rem);
+    weight: 600;
+  }
+  color: $color-bg-dark;
+}
+
+.heroHeading {
+  font: {
+    size: clamp(1.5rem, 3vw, 5rem);
+    weight: 500;
+  }
+}
+
+.section-gap {
+  padding: {
+    top: clamp(2rem, 3vw, 6rem);
+    bottom: clamp(2rem, 3vw, 6rem);
+  }
+}
+
+.section-gap-top {
+  padding-top: 10%;
+}
+.section-gap-bottom {
+  padding-top: 10%;
+}
+
+.container {
+  padding: {
+    left: clamp(1rem, 5vw, 15rem);
+    right: clamp(1rem, 5vw, 15rem);
+  }
+}
+
+//buttons
+.btn {
+  padding: 0.7rem 3rem;
+  border-radius: 30px;
+
+  font: {
+    size: 1rem;
+    weight: 600;
+    family: "Popins", sans-serif;
+  }
+
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 3px 10px lightgray;
+  }
+}
+
+.btn-nav {
+  padding: 0.7rem 3rem;
+  border-radius: 30px;
+  font: {
+    size: 1rem;
+    weight: 600;
+    family: "Popins", sans-serif;
+  }
+  border: none;
+  color: white;
+  background-image: linear-gradient(to right, #ffb412, $color-primary);
+
+  &:hover {
+    cursor: pointer;
+    background-color: orange;
+  }
+}
+
+.btn-primary {
+  @extend .btn;
+
+  color: white;
+  background-image: linear-gradient(to right, #ffb412, $color-primary);
+}
+.btn-secondary {
+  @extend .btn;
+
+  color: white;
+  background-image: linear-gradient(to right, #5b058d, $color-secondary);
+}
+.btn-success {
+  @extend .btn;
+
+  color: white;
+  background-image: linear-gradient(to right, #2b4e5e, $color-bg-dark);
+}
+.btn-warning {
+  @extend .btn;
+
+  color: white;
+  background-image: linear-gradient(to right, #c22f2f, $color-red);
+}
+.btn-disabled {
+  @extend .btn;
+
+  color: $color-gray;
+  background-image: linear-gradient(to right, #c5c5c5, $color-muted);
+}
+
+.inputStyle {
+  display: inline-block;
+  outline: none;
+  border: 1px solid lightgray;
+  font-size: 1rem;
+  width: 96%;
+  padding: 0.5rem 2%;
+  box-shadow: 1px 1px 2px #ececec;
+  border-radius: 30px;
+  margin: {
+    top: 5px;
+    bottom: 10px;
+  }
+
+  &:hover {
+    box-shadow: 1px 2px 4px lightgray;
+    border: 1px solid #d3d3d3;
+  }
+  &:focus {
+    box-shadow: 1px 2px 4px #b8b8b8;
+    border: 1px solid #bbbbbb;
+  }
+}
+
+.donateInput {
+  background-color: #ffffff19;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.248);
+  color: white;
+
+  &:hover {
+    box-shadow: 1px 2px 4px #00000059;
+    border: 1px solid #00000060;
+  }
+  &:focus {
+    box-shadow: 1px 2px 4px #00000059;
+    border: 1px solid #00000060;
+    background-color: white;
+    color: black;
+  }
+}
+
+// Olect styles
+.Olect_option_container {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.Olect_option_current_value {
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff19;
+  border-radius: 30px;
+  width: 96%;
+  padding: 0.3rem 2%;
+  margin: {
+    top: 3px;
+    bottom: 0.5rem;
+  }
+}
+
+.downChevron {
+  font-size: 0.7rem;
+  margin-right: 0.7rem;
+}
+
+.Olect_options {
+  position: absolute;
+  margin-top: -2rem;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px $color-bg-dark;
+  background-color: $color-gray;
+}
+
+.Olect_option_bar {
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  color: white;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: gray;
+    color: white;
+  }
+}
+
+// Oradio styles
+.Oradio_label_style {
+  display: flex;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  margin: 0.2rem 0;
+
+  span {
+    margin-left: 1rem;
+  }
+}
+.Oradio_label_icon {
+  font-size: 1.3rem;
+}
+
+.errorStyle {
+  text-align: left;
+  background-color: #ffcbcb;
+  border-radius: 30px;
+  padding: 0.1rem 1rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
