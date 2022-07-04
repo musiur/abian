@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getCookie } from "../cookies";
+import { getCookie, setCookie } from "../cookies";
 import "../styles/components/donationlist.scss";
 import "../styles/components/navbar.scss";
 import "../styles/components/userlist.scss";
@@ -15,6 +15,9 @@ export const UserContext = createContext();
 
 const doc = typeof document !== "undefined";
 const emptyUser = { login: false, details: {} };
+if(doc && !getCookie("userdata")){
+  setCookie("userdata", JSON.stringify(emptyUser), 5);
+}
 const cookieUser = doc && JSON.parse(getCookie("userdata"));
 
 function MyApp({ Component, pageProps }) {

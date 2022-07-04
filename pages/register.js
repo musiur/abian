@@ -12,6 +12,8 @@ const Register = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(formData);
+
+  const [adminReg, setAdminReg] = useState(false);
   const router = useRouter();
 
   const handleOnChange = (e) => {
@@ -33,13 +35,13 @@ const Register = () => {
       if (password === confirm_password && password.length >= 8) {
         const fetchAPI = async () => {
           const res = await axios.post(
-            "http://localhost:9000/auth/register",
+            `http://localhost:9000/auth/${adminReg ? "admin-" : ""}register`,
             userdata
           );
-         if(res.status === 200){
-          alert("Registration successfull! Let log in.");
-          router.push("/login")
-         } 
+          if (res.status === 200) {
+            alert("Registration successfull! Let log in.");
+            router.push("/login");
+          }
         };
         try {
           fetchAPI();
@@ -99,6 +101,14 @@ const Register = () => {
         {errorMessage.confirm_password && (
           <div className="errorStyle">{errorMessage.confirm_password}</div>
         )}
+
+        {/* <br />
+        <input
+          type="checkbox"
+          id="adminReg"
+          onChange={() => setAdminReg(!adminReg)}
+        />
+        <label htmlFor="adminReg">Admin registration</label> */}
 
         <button onClick={handleOnSubmit} className="btn-primary">
           Sign Up

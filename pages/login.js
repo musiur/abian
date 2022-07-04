@@ -10,6 +10,7 @@ import { UserContext } from "./_app";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState(formData);
+  const [adminLogin, setAdminLogin] = useState(false);
   const [user, setUser] = useContext(UserContext);
   const router = useRouter();
 
@@ -24,7 +25,6 @@ const Login = () => {
   };
 
   const redirectToDashboard = () => {
-    // typeof window !== "undefined" && window.location.replace("/dashboard");
     router.push("/dashboard");
   };
 
@@ -36,7 +36,7 @@ const Login = () => {
 
       const fetchAPI = async () => {
         const res = await axios.post(
-          "http://localhost:9000/auth/login",
+          `http://localhost:9000/auth/${adminLogin ? "admin-" : ""}login`,
           userdata
         );
 
@@ -55,7 +55,6 @@ const Login = () => {
   }, [errorMessage]);
 
   useEffect(() => {
-    console.log(user);
     user.login === true && redirectToDashboard();
   }, [user]);
   return (
@@ -84,6 +83,14 @@ const Login = () => {
         {errorMessage.password && (
           <div className="errorStyle">{errorMessage.password}</div>
         )}
+
+        <br />
+        <input
+          type="checkbox"
+          id="adminLogin"
+          onChange={() => setAdminLogin(!adminLogin)}
+        />
+        <label htmlFor="adminLogin" style={{paddingLeft: "5px"}}>Admin login</label>
 
         <button onClick={handleOnSubmit} className="btn-primary">
           Login
