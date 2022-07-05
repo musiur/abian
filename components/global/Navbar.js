@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { setCookie } from "../../cookies";
 import { UserContext } from "../../pages/_app";
 
 const links = [
@@ -20,6 +21,8 @@ const links = [
   },
 ];
 
+const emptyUser = { login: false, details: {} };
+
 const Navbar = () => {
   const [openMobileNav, setOpenMobileNav] = useState(false);
   const router = useRouter();
@@ -30,6 +33,7 @@ const Navbar = () => {
   }, [router]);
 
   const logout = () => {
+    setCookie("userdata", JSON.stringify(emptyUser));
     setUser({ ...user, login: false });
   };
 
@@ -62,22 +66,33 @@ const Navbar = () => {
               </div>
             );
           })}
-          {user.login ? (
-            <Link href="/dashboard" passHref>
-              <p className="username-color">
-                {user.details.username ? user.details.username : "Dashboard"}
-              </p>
-            </Link>
-          ) : null}
-          {user.login ? (
-            <button className="btn-nav" onClick={logout}>
-              Logout
-            </button>
-          ) : (
-            <Link href="/login" passHref>
-              <button className="btn-nav">Login</button>
-            </Link>
-          )}
+          <div>
+            {user.login && (
+              <Link href="/dashboard" passHref>
+                <p
+                  className="username-color"
+                  style={{
+                    color: `${
+                      router.pathname === "/dashboard" ? "orange" : "white"
+                    }`,
+                  }}
+                >
+                  {user.details.username ? user.details.username : "Dashboard"}
+                </p>
+              </Link>
+            )}
+          </div>
+          <div>
+            {user.login ? (
+              <button className="btn-nav" onClick={logout}>
+                Logout
+              </button>
+            ) : (
+              <Link href="/login" passHref>
+                <button className="btn-nav">Login</button>
+              </Link>
+            )}
+          </div>
         </div>
         <div
           className={`nav__barIcon`}

@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { setCookie } from "../cookies";
 import validator from "../formValidators/loginPageFormValidator";
 import FormStyles from "../styles/modules/form.module.scss";
 import { UserContext } from "./_app";
@@ -24,7 +25,7 @@ const Login = () => {
 
   const redirectToDashboard = () => {
     // typeof window !== "undefined" && window.location.replace("/dashboard");
-    router.push("/dashboard")
+    router.push("/dashboard");
   };
 
   useEffect(() => {
@@ -39,7 +40,11 @@ const Login = () => {
           userdata
         );
 
-        res.status === 200 && setUser({ ...user, login: true, details: res.data.result });
+        if (res.status === 200) {
+          let tempUserData = { ...user, login: true, details: res.data.result };
+          setCookie("userdata", JSON.stringify(tempUserData), 5);
+          setUser(tempUserData);
+        }
       };
       try {
         fetchAPI();
@@ -50,7 +55,7 @@ const Login = () => {
   }, [errorMessage]);
 
   useEffect(() => {
-    console.log(user)
+    console.log(user);
     user.login === true && redirectToDashboard();
   }, [user]);
   return (
