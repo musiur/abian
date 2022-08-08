@@ -6,12 +6,20 @@ import validator from "../formValidators/registerFormValidation";
 import FormStyles from "../styles/modules/form.module.scss";
 
 const Register = () => {
+  // form handler
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(formData);
+
+  // message handler
+  const [message, setMessage] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState(false);
+  const [regBtnText, setRegBtnText] = useState("Register")
+  // route handler
   const router = useRouter();
 
   const handleOnChange = (e) => {
@@ -32,25 +40,36 @@ const Register = () => {
 
       if (password === confirm_password && password.length >= 8) {
         const fetchAPI = async () => {
-          const res = await axios.post(
-            "http://localhost:9000/auth/register",
-            userdata
-          );
-         if(res.status === 200){
-          alert("Registration successfull! Let log in.");
-          router.push("/login")
-         } 
+          try {
+            const res = await axios.post(
+              "http://localhost:9000/auth/register",
+              userdata
+            );
+            if (res.status === 200) {
+              setMessage("You have successfully registered an account!");
+              setMessageType(true);
+              setShowMessage(true);
+              router.push("/login");
+            } else {
+              SomethingWentWrong();
+            }
+          } catch (err) {
+            SomethingWentWrong(err);
+          }
         };
-        try {
-          fetchAPI();
-        } catch (err) {
-          console.log(err);
-        }
+        fetchAPI();
       } else {
-        console.log("Password issue!");
+        SomethingWentWrong("Recheck your password!");
       }
     }
   }, [errorMessage]);
+
+  const SomethingWentWrong = (message) => {
+    setMessage(message ? message : "Something went wrong!");
+    setMessageType(false);
+    setShowMessage(true);
+  };
+
   return (
     <div className={FormStyles.formContainer}>
       <h2>Register</h2>
@@ -100,8 +119,18 @@ const Register = () => {
           <div className="errorStyle">{errorMessage.confirm_password}</div>
         )}
 
+        {showMessage ? (
+          <div className={messageType ? "successStyle" : "errorStyle"}>
+            {message}
+          </div>
+        ) : null}
+
         <button onClick={handleOnSubmit} className="btn-primary">
-          Sign Up
+        {loginBtnText === "Register" ? (
+            "Sign up"
+          ) : (
+            <div className="btn-loading">{loginBtnText}</div>
+          )}
         </button>
       </form>
 

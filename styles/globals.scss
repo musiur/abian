@@ -236,3 +236,24 @@
   display: inline-block;
   margin-bottom: 0.5rem;
 }
+.successStyle {
+  text-align: left;
+  background-color: #cbffdb;
+  border-radius: 30px;
+  padding: 0.1rem 1rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.btn-loading {
+  -webkit-animation: rotating 1s linear infinite;
+}
+
+@-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

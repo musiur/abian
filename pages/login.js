@@ -2,14 +2,23 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import emoji from "../components/global/Emoji";
 import validator from "../formValidators/loginPageFormValidator";
 import FormStyles from "../styles/modules/form.module.scss";
 import { UserContext } from "./_app";
 
 const Login = () => {
+  // form handler
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errorMessage, setErrorMessage] = useState(formData);
+  const [loginBtnText, setLoginBtnText] = useState("Login");
+  //message handler
+  const [message, setMessage] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
+  const [messageType, setMessageType] = useState(false);
+  //context handler
   const [user, setUser] = useContext(UserContext);
+  //route handler
   const router = useRouter();
 
   const handleOnChange = (e) => {
@@ -23,8 +32,7 @@ const Login = () => {
   };
 
   const redirectToDashboard = () => {
-    // typeof window !== "undefined" && window.location.replace("/dashboard");
-    router.push("/dashboard")
+    router.push("/dashboard");
   };
 
   useEffect(() => {
@@ -34,25 +42,42 @@ const Login = () => {
       const userdata = { email, password };
 
       const fetchAPI = async () => {
-        const res = await axios.post(
-          "http://localhost:9000/auth/login",
-          userdata
-        );
+        try {
+          setLoginBtnText(emoji.loading);
+          const res = await axios.post(
+            "http://localhost:9000/auth/login",
+            userdata
+          );
 
-        res.status === 200 && setUser({ ...user, login: true, details: res.data.result });
+          console.log(res);
+          if (res.status === 200) {
+            setMessage("Successfully logged in!");
+            setMessageType(true);
+            setShowMessage(true);
+            setUser({ ...user, login: true, details: res.data.result });
+          } else {
+            SomethingWentWrong(res.message);
+          }
+        } catch (err) {
+          SomethingWentWrong(err.response.data.message);
+        }
+        setLoginBtnText("Login");
       };
-      try {
-        fetchAPI();
-      } catch (err) {
-        console.log(err);
-      }
+
+      fetchAPI();
     }
   }, [errorMessage]);
 
   useEffect(() => {
-    console.log(user)
     user.login === true && redirectToDashboard();
   }, [user]);
+
+  const SomethingWentWrong = (message) => {
+    const errorMessage = "Something went wrong!" + emoji.error;
+    setMessage(message ? message : errorMessage);
+    setMessageType(false);
+    setShowMessage(true);
+  };
   return (
     <div className={FormStyles.formContainer}>
       <h2>Login</h2>
@@ -80,8 +105,18 @@ const Login = () => {
           <div className="errorStyle">{errorMessage.password}</div>
         )}
 
+        {showMessage ? (
+          <div className={messageType ? "successStyle" : "errorStyle"}>
+            {message}
+          </div>
+        ) : null}
+
         <button onClick={handleOnSubmit} className="btn-primary">
-          Login
+          {loginBtnText === "Login" ? (
+            "Login"
+          ) : (
+            <div className="btn-loading">{loginBtnText}</div>
+          )}
         </button>
       </form>
 
