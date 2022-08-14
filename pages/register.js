@@ -13,13 +13,13 @@ const Register = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState(formData);
-
   // message handler
   const [message, setMessage] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState(false);
-  const [regBtnText, setRegBtnText] = useState("Register")
+  const [regBtnText, setRegBtnText] = useState("Register");
   // route handler
+  const [adminReg, setAdminReg] = useState(false);
   const router = useRouter();
 
   const handleOnChange = (e) => {
@@ -55,9 +55,17 @@ const Register = () => {
             }
           } catch (err) {
             SomethingWentWrong(err);
+            const res = await axios.post(
+              `http://localhost:9000/auth/${adminReg ? "admin-" : ""}register`,
+              userdata
+            );
+            if (res.status === 200) {
+              alert("Registration successfull! Let log in.");
+              router.push("/login");
+            }
           }
+          fetchAPI();
         };
-        fetchAPI();
       } else {
         SomethingWentWrong("Recheck your password!");
       }
@@ -124,9 +132,16 @@ const Register = () => {
             {message}
           </div>
         ) : null}
+        {/* <br />
+        <input
+          type="checkbox"
+          id="adminReg"
+          onChange={() => setAdminReg(!adminReg)}
+        />
+        <label htmlFor="adminReg">Admin registration</label> */}
 
         <button onClick={handleOnSubmit} className="btn-primary">
-        {loginBtnText === "Register" ? (
+          {loginBtnText === "Register" ? (
             "Sign up"
           ) : (
             <div className="btn-loading">{loginBtnText}</div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import emoji from "../components/global/Emoji";
+import { setCookie } from "../cookies";
 import validator from "../formValidators/loginPageFormValidator";
 import FormStyles from "../styles/modules/form.module.scss";
 import { UserContext } from "./_app";
@@ -17,6 +18,7 @@ const Login = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [messageType, setMessageType] = useState(false);
   //context handler
+  const [adminLogin, setAdminLogin] = useState(false);
   const [user, setUser] = useContext(UserContext);
   //route handler
   const router = useRouter();
@@ -62,6 +64,16 @@ const Login = () => {
           SomethingWentWrong(err.response.data.message);
         }
         setLoginBtnText("Login");
+        const res = await axios.post(
+          `http://localhost:9000/auth/${adminLogin ? "admin-" : ""}login`,
+          userdata
+        );
+
+        if (res.status === 200) {
+          let tempUserData = { ...user, login: true, details: res.data.result };
+          setCookie("userdata", JSON.stringify(tempUserData), 5);
+          setUser(tempUserData);
+        }
       };
 
       fetchAPI();
@@ -110,6 +122,13 @@ const Login = () => {
             {message}
           </div>
         ) : null}
+        <br />
+        <input
+          type="checkbox"
+          id="adminLogin"
+          onChange={() => setAdminLogin(!adminLogin)}
+        />
+        <label htmlFor="adminLogin" style={{paddingLeft: "5px"}}>Admin login</label>
 
         <button onClick={handleOnSubmit} className="btn-primary">
           {loginBtnText === "Login" ? (
