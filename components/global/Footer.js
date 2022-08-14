@@ -43,8 +43,6 @@ const Footer = () => {
         if (Object.keys(errorMessage).length === 0) {
             //api calling
             console.log("No error found!")
-        } else {
-            console.log(errorMessage);
         }
     }, [errorMessage])
 

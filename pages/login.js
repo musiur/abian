@@ -47,7 +47,7 @@ const Login = () => {
         try {
           setLoginBtnText(emoji.loading);
           const res = await axios.post(
-            "http://localhost:9000/auth/login",
+            `http://localhost:9000/auth/${adminLogin ? "admin-" : ""}login`,
             userdata
           );
 
@@ -56,7 +56,13 @@ const Login = () => {
             setMessage("Successfully logged in!");
             setMessageType(true);
             setShowMessage(true);
-            setUser({ ...user, login: true, details: res.data.result });
+            let tempUserData = {
+              ...user,
+              login: true,
+              details: res.data.result,
+            };
+            setCookie("userdata", JSON.stringify(tempUserData), 5);
+            setUser(tempUserData);
           } else {
             SomethingWentWrong(res.message);
           }
@@ -64,16 +70,6 @@ const Login = () => {
           SomethingWentWrong(err.response.data.message);
         }
         setLoginBtnText("Login");
-        const res = await axios.post(
-          `http://localhost:9000/auth/${adminLogin ? "admin-" : ""}login`,
-          userdata
-        );
-
-        if (res.status === 200) {
-          let tempUserData = { ...user, login: true, details: res.data.result };
-          setCookie("userdata", JSON.stringify(tempUserData), 5);
-          setUser(tempUserData);
-        }
       };
 
       fetchAPI();
@@ -128,7 +124,9 @@ const Login = () => {
           id="adminLogin"
           onChange={() => setAdminLogin(!adminLogin)}
         />
-        <label htmlFor="adminLogin" style={{paddingLeft: "5px"}}>Admin login</label>
+        <label htmlFor="adminLogin" style={{ paddingLeft: "5px" }}>
+          Admin login
+        </label>
 
         <button onClick={handleOnSubmit} className="btn-primary">
           {loginBtnText === "Login" ? (

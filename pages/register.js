@@ -40,9 +40,10 @@ const Register = () => {
 
       if (password === confirm_password && password.length >= 8) {
         const fetchAPI = async () => {
+          console.log("Click porse");
           try {
             const res = await axios.post(
-              "http://localhost:9000/auth/register",
+              `http://localhost:9000/auth/${adminReg ? "admin-" : ""}register`,
               userdata
             );
             if (res.status === 200) {
@@ -55,20 +56,14 @@ const Register = () => {
             }
           } catch (err) {
             SomethingWentWrong(err);
-            const res = await axios.post(
-              `http://localhost:9000/auth/${adminReg ? "admin-" : ""}register`,
-              userdata
-            );
-            if (res.status === 200) {
-              alert("Registration successfull! Let log in.");
-              router.push("/login");
-            }
           }
-          fetchAPI();
         };
+        fetchAPI();
       } else {
         SomethingWentWrong("Recheck your password!");
       }
+    } else {
+      console.log("Shomossha boss!");
     }
   }, [errorMessage]);
 
@@ -132,19 +127,19 @@ const Register = () => {
             {message}
           </div>
         ) : null}
-        {/* <br />
+        <br />
         <input
           type="checkbox"
           id="adminReg"
           onChange={() => setAdminReg(!adminReg)}
         />
-        <label htmlFor="adminReg">Admin registration</label> */}
+        <label htmlFor="adminReg">Admin registration</label>
 
         <button onClick={handleOnSubmit} className="btn-primary">
-          {loginBtnText === "Register" ? (
+          {regBtnText === "Register" ? (
             "Sign up"
           ) : (
-            <div className="btn-loading">{loginBtnText}</div>
+            <div className="btn-loading">{regBtnText}</div>
           )}
         </button>
       </form>

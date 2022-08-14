@@ -15,16 +15,17 @@ export const UserContext = createContext();
 
 const doc = typeof document !== "undefined";
 const emptyUser = { login: false, details: {} };
-if(doc && !getCookie("userdata")){
+if (doc && !getCookie("userdata")) {
   setCookie("userdata", JSON.stringify(emptyUser), 5);
 }
 const cookieUser = doc && JSON.parse(getCookie("userdata"));
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(emptyUser);
+  
   useEffect(() => {
-    setUser(cookieUser);
-  }, [])
+    doc && setUser(cookieUser);
+  }, []);
   return (
     <UserContext.Provider value={[user, setUser]}>
       <div className="mainroot">
