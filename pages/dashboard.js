@@ -11,6 +11,7 @@ import CommonProfile from "../components/usual/CommonProfile";
 import DonationTable from "../components/usual/DonationTable";
 import Settings from "../components/usual/Settings";
 import UserList from "../components/usual/UserList";
+import { getCookie } from "../cookies";
 import { UserContext } from "./_app";
 const sideNavList = [
   {
@@ -37,8 +38,9 @@ const Dashboard = () => {
   const [user, setUser] = useContext(UserContext);
 
   const router = useRouter();
+  const userCookie = doc && JSON.parse(getCookie("userdata"));
 
-  if (user.login) {
+  if (doc && user.login && userCookie.login) {
     return (
       <div className="dashboard__container">
         <div className="dc__sidenav">

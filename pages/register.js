@@ -55,7 +55,7 @@ const Register = () => {
               SomethingWentWrong();
             }
           } catch (err) {
-            SomethingWentWrong(err);
+            SomethingWentWrong();
           }
         };
         fetchAPI();
