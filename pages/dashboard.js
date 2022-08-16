@@ -1,4 +1,8 @@
 import {
+  faCalendarDays,
+  faCalendarPlus
+} from "@fortawesome/free-regular-svg-icons";
+import {
   faDonate,
   faGear,
   faUserAlt,
@@ -7,10 +11,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import PrivateRoute from "../components/Auth/PrivateRoute";
-import CommonProfile from "../components/usual/CommonProfile";
-import DonationTable from "../components/usual/DonationTable";
-import Settings from "../components/usual/Settings";
-import UserList from "../components/usual/UserList";
+import CommonProfile from "../components/dashboard/CommonProfile";
+import CreateEvent from "../components/dashboard/CreateEvent";
+import DonationTable from "../components/dashboard/DonationTable";
+import Events from "../components/dashboard/Events";
+import Settings from "../components/dashboard/Settings";
+import UserList from "../components/dashboard/UserList";
 const sideNavList = [
   {
     link: "Profile",
@@ -19,6 +25,14 @@ const sideNavList = [
   {
     link: "Users",
     icon: faUserCheck,
+  },
+  {
+    link: "Events",
+    icon: faCalendarDays,
+  },
+  {
+    link: "Create Event",
+    icon: faCalendarPlus,
   },
   {
     link: "Donations",
@@ -56,8 +70,10 @@ const Dashboard = () => {
         <div className="dc__field">
           {currentTab === 0 && <CommonProfile />}
           {currentTab === 1 && <UserList />}
-          {currentTab === 2 && <DonationTable />}
-          {currentTab === 3 && <Settings />}
+          {currentTab === 2 && <Events />}
+          {currentTab === 3 && <CreateEvent />}
+          {currentTab === 4 && <DonationTable />}
+          {currentTab === 5 && <Settings />}
         </div>
       </div>
     </PrivateRoute>
