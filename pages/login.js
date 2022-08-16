@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import PublicRoute from "../components/Auth/PublicRouter";
 import emoji from "../components/global/Emoji";
 import { setCookie } from "../cookies";
 import validator from "../formValidators/loginPageFormValidator";
@@ -87,63 +88,65 @@ const Login = () => {
     setShowMessage(true);
   };
   return (
-    <div className={FormStyles.formContainer}>
-      <h2>Login</h2>
+    <PublicRoute>
+      <div className={FormStyles.formContainer}>
+        <h2>Login</h2>
 
-      <form className={FormStyles.formBox}>
-        <input
-          onChange={handleOnChange}
-          name="email"
-          type="email"
-          placeholder="Email address"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.email && (
-          <div className="errorStyle">{errorMessage.email}</div>
-        )}
-
-        <input
-          onChange={handleOnChange}
-          name="password"
-          type="password"
-          placeholder="Password"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.password && (
-          <div className="errorStyle">{errorMessage.password}</div>
-        )}
-
-        {showMessage ? (
-          <div className={messageType ? "successStyle" : "errorStyle"}>
-            {message}
-          </div>
-        ) : null}
-        <br />
-        <input
-          type="checkbox"
-          id="adminLogin"
-          onChange={() => setAdminLogin(!adminLogin)}
-        />
-        <label htmlFor="adminLogin" style={{ paddingLeft: "5px" }}>
-          Admin login
-        </label>
-
-        <button onClick={handleOnSubmit} className="btn-primary">
-          {loginBtnText === "Login" ? (
-            "Login"
-          ) : (
-            <div className="btn-loading">{loginBtnText}</div>
+        <form className={FormStyles.formBox}>
+          <input
+            onChange={handleOnChange}
+            name="email"
+            type="email"
+            placeholder="Email address"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.email && (
+            <div className="errorStyle">{errorMessage.email}</div>
           )}
-        </button>
-      </form>
 
-      <p>
-        {`Don't `}have account?{" "}
-        <Link href="/register" passHref>
-          Create now!
-        </Link>
-      </p>
-    </div>
+          <input
+            onChange={handleOnChange}
+            name="password"
+            type="password"
+            placeholder="Password"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.password && (
+            <div className="errorStyle">{errorMessage.password}</div>
+          )}
+
+          {showMessage ? (
+            <div className={messageType ? "successStyle" : "errorStyle"}>
+              {message}
+            </div>
+          ) : null}
+          <br />
+          <input
+            type="checkbox"
+            id="adminLogin"
+            onChange={() => setAdminLogin(!adminLogin)}
+          />
+          <label htmlFor="adminLogin" style={{ paddingLeft: "5px" }}>
+            Admin login
+          </label>
+
+          <button onClick={handleOnSubmit} className="btn-primary">
+            {loginBtnText === "Login" ? (
+              "Login"
+            ) : (
+              <div className="btn-loading">{loginBtnText}</div>
+            )}
+          </button>
+        </form>
+
+        <p>
+          {`Don't `}have account?{" "}
+          <Link href="/register" passHref>
+            Create now!
+          </Link>
+        </p>
+      </div>
+    </PublicRoute>
   );
 };
 

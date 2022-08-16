@@ -2,6 +2,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import PublicRoute from "../components/Auth/PublicRouter";
 import validator from "../formValidators/registerFormValidation";
 import FormStyles from "../styles/modules/form.module.scss";
 
@@ -74,83 +75,85 @@ const Register = () => {
   };
 
   return (
-    <div className={FormStyles.formContainer}>
-      <h2>Register</h2>
+    <PublicRoute>
+      <div className={FormStyles.formContainer}>
+        <h2>Register</h2>
 
-      <form className={FormStyles.formBox}>
-        <input
-          onChange={handleOnChange}
-          name="username"
-          type="text"
-          placeholder="Username"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.username && (
-          <div className="errorStyle">{errorMessage.username}</div>
-        )}
-
-        <input
-          onChange={handleOnChange}
-          name="email"
-          type="email"
-          placeholder="Email address"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.email && (
-          <div className="errorStyle">{errorMessage.email}</div>
-        )}
-
-        <input
-          onChange={handleOnChange}
-          name="password"
-          type="password"
-          placeholder="Password"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.password && (
-          <div className="errorStyle">{errorMessage.password}</div>
-        )}
-
-        <input
-          onChange={handleOnChange}
-          name="confirm_password"
-          type="password"
-          placeholder="Confirm password"
-          className={FormStyles.inputBox}
-        />
-        {errorMessage.confirm_password && (
-          <div className="errorStyle">{errorMessage.confirm_password}</div>
-        )}
-
-        {showMessage ? (
-          <div className={messageType ? "successStyle" : "errorStyle"}>
-            {message}
-          </div>
-        ) : null}
-        <br />
-        <input
-          type="checkbox"
-          id="adminReg"
-          onChange={() => setAdminReg(!adminReg)}
-        />
-        <label htmlFor="adminReg">Admin registration</label>
-
-        <button onClick={handleOnSubmit} className="btn-primary">
-          {regBtnText === "Register" ? (
-            "Sign up"
-          ) : (
-            <div className="btn-loading">{regBtnText}</div>
+        <form className={FormStyles.formBox}>
+          <input
+            onChange={handleOnChange}
+            name="username"
+            type="text"
+            placeholder="Username"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.username && (
+            <div className="errorStyle">{errorMessage.username}</div>
           )}
-        </button>
-      </form>
 
-      <p>
-        Already have account?{" "}
-        <Link href="/login" passHref>
-          Login now!
-        </Link>
-      </p>
-    </div>
+          <input
+            onChange={handleOnChange}
+            name="email"
+            type="email"
+            placeholder="Email address"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.email && (
+            <div className="errorStyle">{errorMessage.email}</div>
+          )}
+
+          <input
+            onChange={handleOnChange}
+            name="password"
+            type="password"
+            placeholder="Password"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.password && (
+            <div className="errorStyle">{errorMessage.password}</div>
+          )}
+
+          <input
+            onChange={handleOnChange}
+            name="confirm_password"
+            type="password"
+            placeholder="Confirm password"
+            className={FormStyles.inputBox}
+          />
+          {errorMessage.confirm_password && (
+            <div className="errorStyle">{errorMessage.confirm_password}</div>
+          )}
+
+          {showMessage ? (
+            <div className={messageType ? "successStyle" : "errorStyle"}>
+              {message}
+            </div>
+          ) : null}
+          <br />
+          <input
+            type="checkbox"
+            id="adminReg"
+            onChange={() => setAdminReg(!adminReg)}
+          />
+          <label htmlFor="adminReg">Admin registration</label>
+
+          <button onClick={handleOnSubmit} className="btn-primary">
+            {regBtnText === "Register" ? (
+              "Sign up"
+            ) : (
+              <div className="btn-loading">{regBtnText}</div>
+            )}
+          </button>
+        </form>
+
+        <p>
+          Already have account?{" "}
+          <Link href="/login" passHref>
+            Login now!
+          </Link>
+        </p>
+      </div>
+    </PublicRoute>
   );
 };
 

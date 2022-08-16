@@ -5,14 +5,12 @@ import {
   faUserCheck
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import PrivateRoute from "../components/Auth/PrivateRoute";
 import CommonProfile from "../components/usual/CommonProfile";
 import DonationTable from "../components/usual/DonationTable";
 import Settings from "../components/usual/Settings";
 import UserList from "../components/usual/UserList";
-import { getCookie } from "../cookies";
-import { UserContext } from "./_app";
 const sideNavList = [
   {
     link: "Profile",
@@ -31,17 +29,12 @@ const sideNavList = [
     icon: faGear,
   },
 ];
-const doc = typeof document !== "undefined";
 
 const Dashboard = () => {
   const [currentTab, setCurrentTab] = useState(0);
-  const [user, setUser] = useContext(UserContext);
 
-  const router = useRouter();
-  const userCookie = doc && JSON.parse(getCookie("userdata"));
-
-  if (doc && user.login && userCookie.login) {
-    return (
+  return (
+    <PrivateRoute>
       <div className="dashboard__container">
         <div className="dc__sidenav">
           <ul>
@@ -67,11 +60,8 @@ const Dashboard = () => {
           {currentTab === 3 && <Settings />}
         </div>
       </div>
-    );
-  } else {
-    doc && !user.login && router.push("/");
-    return <div></div>;
-  }
+    </PrivateRoute>
+  );
 };
 
 export default Dashboard;
