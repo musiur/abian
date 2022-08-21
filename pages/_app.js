@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { getCookie, setCookie } from "../cookies";
 import "../styles/components/donationlist.scss";
+import "../styles/components/events.scss";
 import "../styles/components/navbar.scss";
 import "../styles/components/userlist.scss";
 import "../styles/globals.css";

@@ -9,25 +9,31 @@
  */
 
 //dependencies
+import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Olect from "../components/RawCompBuilder/FormElements/Olect";
 import Oradio from "../components/RawCompBuilder/FormElements/Oradio";
 import DevelopmentOnGoing from "../components/usual/DevelopmentOnGoing";
 import HomeStyles from "../styles/modules/home.module.scss";
+import { UserContext } from "./_app";
 import Carousel from "/components/usual/Carousel";
 
 //form data object scaffolding
 const InitialFormData = {
-  full_name: "",
-  email: "",
-  causes: "",
+  name: "",
+  location: "",
+  event_id: "",
   payment_method: "",
   amount: "",
+  transaction_id: "",
+  contact_number: ""
 };
 
 //main function
 const Index = () => {
+  const [user, setUser] = useContext(UserContext);
+  const [eventIDs, setEventIDs] = useState([]);
   //form data managing states
   const [formData, setFormData] = useState(InitialFormData);
   const [errorMessage, setErrorMessage] = useState(formData);
@@ -47,13 +53,60 @@ const Index = () => {
   //action on errors
   useEffect(() => {
     if (Object.keys(errorMessage).length === 0) {
-      console.log(formData);
+      const {
+        name,
+        location,
+        contact_number,
+        transaction_id,
+        amount,
+        payment_method,
+        event_id,
+      } = formData;
+
+      const data = {
+        name,
+        location,
+        contact_number,
+        transaction_id,
+        amount,
+        member_type: user.details.member_type,
+        payment_method,
+        donar_id: user.details.id,
+        event_id,
+      };
+
+      const fetchAPI = async () => {
+        const response = await axios.post(
+          `http://localhost:9000/donation/create`,
+          data
+        );
+        console.log(response);
+      };
+
+      fetchAPI();
     }
   }, [errorMessage]);
 
+  useEffect(() => {
+    const fetchEventDetails = async () => {
+      const response = await axios.get(`http://localhost:9000/events`);
+      // console.log(response);
+
+      const arr = [];
+      if (response.status === 200) {
+        response.data.result.forEach((element) => {
+          arr.push(element.id);
+        });
+
+        setEventIDs(arr);
+      }
+    };
+    fetchEventDetails();
+  }, []);
+
   //donation form element data for section of causes and payment method
-  const causesList = ["Food", "Cloth", "Education", "Others"];
   const paymentMethods = ["bKash", "Rocket", "Nagad"];
+  const memberType = ["Silver", "Gold", "Dimond"];
 
   return (
     <>
@@ -99,41 +152,88 @@ const Index = () => {
 
         <div className={HomeStyles.donateRightDiv}>
           <form>
-            <label htmlFor="fullName">Full name</label>
+            <label htmlFor="name">Full name</label>
             <input
-              name="full_name"
+              name="name"
               type="text"
               placeholder="Enter your full name..."
-              className="fullName inputStyle donateInput"
+              className="name inputStyle donateInput"
               onChange={handleOnChange}
             />
 
-            <label htmlFor="emailAddress">Email address</label>
+            {errorMessage.name ? (
+              <div className="errorStyle">{errorMessage.name}</div>
+            ) : null}
+            <br />
+
+            <label htmlFor="location">Location</label>
             <input
-              name="email"
-              type="email"
-              placeholder="Enter your email address..."
-              className="emailAddress inputStyle donateInput"
+              name="location"
+              type="text"
+              placeholder="Enter your location..."
+              className="location inputStyle donateInput"
               onChange={handleOnChange}
             />
+            {errorMessage.location ? (
+              <div className="errorStyle">{errorMessage.location}</div>
+            ) : null}
+            <br />
 
-            <label htmlFor="causes">Cause</label>
+            <label htmlFor="event_id">Event ID</label>
             <Olect
-              name="causes"
-              className="causes"
+              name="event_id"
+              className="event_id"
               defaultValue="None"
-              options={causesList}
+              options={eventIDs}
               onChange={handleOnChange}
             />
 
-            <label htmlFor="emailAddress">Amount you had given</label>
+            {errorMessage.event_id ? (
+              <div className="errorStyle">{errorMessage.event_id}</div>
+            ) : null}
+            <br />
+
+            <label htmlFor="contact_number">Contact number</label>
+            <input
+              name="contact_number"
+              type="number"
+              placeholder="Enter your email address..."
+              className="contact_number inputStyle donateInput"
+              onChange={handleOnChange}
+            />
+
+            {errorMessage.contact_number ? (
+              <div className="errorStyle">{errorMessage.contact_number}</div>
+            ) : null}
+            <br />
+
+            <label htmlFor="amount">Amount you had given</label>
             <input
               name="amount"
-              type="email"
+              type="number"
               placeholder="Enter your email address..."
-              className="emailAddress inputStyle donateInput"
+              className="amount inputStyle donateInput"
               onChange={handleOnChange}
             />
+
+            {errorMessage.amount ? (
+              <div className="errorStyle">{errorMessage.amount}</div>
+            ) : null}
+            <br />
+
+            <label htmlFor="transaction_id">Transaction ID</label>
+            <input
+              name="transaction_id"
+              type="text"
+              placeholder="Enter your email address..."
+              className="transaction_id inputStyle donateInput"
+              onChange={handleOnChange}
+            />
+
+            {errorMessage.transaction_id ? (
+              <div className="errorStyle">{errorMessage.transaction_id}</div>
+            ) : null}
+            <br />
 
             <label htmlFor="paymentMethod">Payment type</label>
             <div className={HomeStyles.radioSelection}>
@@ -146,6 +246,11 @@ const Index = () => {
                 defaultValue=""
               />
             </div>
+
+            {errorMessage.payment_method ? (
+              <div className="errorStyle">{errorMessage.payment_method}</div>
+            ) : null}
+            <br />
 
             <button onClick={handleOnSubmit}>Donate now</button>
           </form>
@@ -209,28 +314,36 @@ const validator = (data) => {
   let err = {};
 
   //fullname validation
-  if (!data.full_name.trim()) {
-    err.full_name = "Full name is required!";
+  if (!data.name.trim()) {
+    err.name = "Full name is required!";
   }
 
   //email validation
-  if (!data.email.trim()) {
-    err.email = "Email is required!";
+  if (!data.location.trim()) {
+    err.location = "Location is required!";
   }
 
   //causes validation
-  if (!data.causes.trim()) {
-    err.causes = "Causes are required!";
+  if (!data.event_id.toString().trim()) {
+    err.event_id = "Event ID are required!";
   }
 
   //amount validation
-  if (!data.amount.trim()) {
+  if (!data.amount.toString().trim() && data.amount < 1) {
     err.amount = "Amount is required";
   }
 
   //payment-method validation
   if (!data.payment_method.trim()) {
     err.payment_method = "Payment method is required!";
+  }
+  //transaction id validation
+  if (!data.transaction_id.trim()) {
+    err.transaction_id = "Transaction method is required!";
+  }
+
+  if (!data.contact_number.toString().trim()) {
+    err.contact_number = "Contact number is required!";
   }
 
   return err;

@@ -129,6 +129,34 @@ const Navbar = () => {
               </div>
             );
           })}
+
+          <div>
+            {user.login && (
+              <Link href="/dashboard" passHref>
+                <p
+                  className="username-color"
+                  style={{
+                    color: `${
+                      router.pathname === "/dashboard" ? "orange" : "white"
+                    }`,
+                  }}
+                >
+                  {user.details.username ? user.details.username : "Dashboard"}
+                </p>
+              </Link>
+            )}
+          </div>
+          <div>
+            {user.login ? (
+              <button className="btn-nav" onClick={logout}>
+                Logout
+              </button>
+            ) : (
+              <Link href="/login" passHref>
+                <button className="btn-nav">Login</button>
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </nav>

@@ -1,0 +1,88 @@
+@import "../partials/variables";
+@import "../partials/mixins";
+@import "../globals.scss";
+
+.event_container {
+    h2 {
+        font-size: clamp(1.3rem, 2vw, 1.8rem);
+        font-weight: bold;
+
+        padding-bottom: 1rem;
+    }
+}
+
+.ec_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.event_card__container {
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
+
+    box-shadow: 0px 0px 5px lightgray;
+
+    &:hover {
+        box-shadow: 4px 4px 20px lightgray;
+    }
+}
+
+.ecc_image {
+    background-image: url("../../static/thirdBgChildren.webp");
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    min-width: 40%;
+    height: 300px;
+
+    @media (max-width: 1024px) {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    border-radius: 10px 0px 0px 10px;
+}
+
+.ecc_body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    padding: 1rem;
+
+    h3 {
+        font-weight: bold;
+
+        span {
+            color: $color-primary;
+            padding-right: 1rem;
+        }
+    }
+
+    p {
+        color: gray;
+    }
+}
+
+.eccb__buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
+}

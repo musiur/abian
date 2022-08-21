@@ -40,19 +40,19 @@ const DonationTable = () => {
                 if (adminView) {
                   return <th key={i}>{th}</th>;
                 } else {
-                  return th === "Actions" ? null : <th key={i}>{th}</th>;
+                  return th === "Action" ? null : <th key={i}>{th}</th>;
                 }
               })}
             </tr>
           </thead>
           <tbody>
             {tBody.map((tRow, i) => {
+              console.log(tRow)
               const {
                 id,
                 name,
                 member_type,
                 contact_number,
-                donar_id,
                 event_id,
                 location,
                 progress,
@@ -69,7 +69,7 @@ const DonationTable = () => {
                   })}
                   {adminView && (
                     <td>
-                      <RemoveDonation id={id} />
+                      <RemoveDonation id={tRow.id} />
                     </td>
                   )}
                 </tr>
@@ -87,11 +87,13 @@ const DonationTable = () => {
 export default DonationTable;
 
 const RemoveDonation = ({ id }) => {
+  console.log(id, "<---")
   const handleRemove = async () => {
+    console.log(id)
     const response = await axios.delete(
       `http://localhost:9000/donation/delete?id=${id}`
     );
-    // console.log(response);
+    console.log(response);
   };
   // console.log(id);
   return <button onClick={handleRemove}>Remove</button>;

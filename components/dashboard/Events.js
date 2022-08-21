@@ -15,9 +15,9 @@ const Events = () => {
   }, []);
   console.log(events);
   return (
-    <div>
+    <div className="event_container">
       <h2>All events for collecting donation</h2>
-      <div>
+      <div className="ec_container">
         {events.map((event, i) => {
           return <EventCard key={i} data={event} />;
         })}
@@ -29,20 +29,19 @@ const Events = () => {
 export default Events;
 
 const EventCard = ({ data }) => {
-  console.log(data);
-  const { title, description, targeted_amount, raised_amount, deadline } = data;
+  const { id, title, description, targeted_amount, raised_amount, deadline } = data;
   return (
-    <div>
-      <div></div>
-      <div>
-        <h3>{title}</h3>
+    <div className="event_card__container">
+      <div className="ecc_image"></div>
+      <div className="ecc_body">
+        <h3><span>{id}</span>{title}</h3>
         <p>{description}</p>
-        <p>{targeted_amount}</p>
-        <p>{raised_amount}</p>
-        <p>{deadline}</p>
-        <div>
-          <button>Update</button>
-          <button>Delete</button>
+        <p>Targeted amount : {targeted_amount}</p>
+        <p>Raised amount : {raised_amount}</p>
+        <p>Deadline : {deadline}</p>
+        <div className="eccb__buttons">
+          <button className="btn-secondary">Update</button>
+          <button className="btn-warning">Delete</button>
         </div>
       </div>
     </div>
